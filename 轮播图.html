@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container{
+            position: relative;
+            height: 280px;
+            width: 520px;
+            background: red;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #imgs{
+            height: 280px;
+            width: 520px;
+        }
+        #imgs img{
+            height: 280px;
+            width: 520px;
+            
+        }
+        #arrow{
+            position: absolute;
+            bottom:10px;
+            left:10px;
+        }
+        #arrow span{
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            background: gray;
+        }
+        #arrow span:hover{
+            background: green;
+            color:white;
+        }
+        #tab{
+            position: absolute;
+            bottom:10px;
+            right:10px;
+        }
+        #tab li{
+            float: left;
+            height: 20px;
+            width: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            list-style: none;
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="imgs">
+        <img src="../imgs/1.jpg" alt="">
+        <img src="../imgs/2.jpg" alt="">
+        <img src="../imgs/3.jpg" alt="">
+        <img src="../imgs/4.jpg" alt="">
+    </div>
+    <ul id="tab">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="arrow">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+</div>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    $(function () {
+        function changeimg(idx) {
+            $("#tab li").eq(idx).css({
+                background: "green",
+                color:"white"
+            }).siblings().css({
+                background:"gray",
+                color:"black"
+            });
+            $("#imgs img").eq(idx).css("display","block").siblings()
+                    .css("display","none");
+        }
+        var nowidx=0;
+        $("#tab li").eq(0).css({
+            background: "green",
+            color:"white"
+        });
+        $("#tab li").on("click",function () {
+            nowidx=$(this).index();
+            changeimg(nowidx);
+        })
+        $("#prev").on("click",function () {
+            nowidx--;
+            if(nowidx==-1){
+                nowidx=$("#imgs img").length-1;
+            }
+            changeimg(nowidx);
+        })
+        $("#next").on("click",function () {
+            nowidx++;
+            if(nowidx==$("#imgs img").length){
+                nowidx=0;
+            }
+            changeimg(nowidx);
+        })
+    });
+</script>
+</body>
+</html>
