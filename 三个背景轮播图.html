@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            border: 0;
+        }
+
+        #container {
+            width: 100%;
+            height: 600px;
+            margin-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #content {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #big-img {
+            position: absolute;
+            top: 100px;
+        }
+
+        #big-img img {
+            height: 300px;
+            width: 700px;
+            float: left;
+        }
+
+        #small-img {
+            position: absolute;
+            width: 700px;
+            height: 100px;
+            background: gray;
+        }
+
+        #small-img img {
+            margin-top: 20px;
+            margin-left: 20px;
+            border: 2px solid white;
+            opacity: 0.4;
+        }
+
+        #prev, #next {
+            height: 60px;
+            width: 30px;
+            background: white;
+            position: absolute;
+        }
+
+        #prev {
+            background: url("../imgs/images/prev.png") no-repeat center;
+        }
+
+        #next {
+            background: url("../imgs/images/next.png") no-repeat center;
+        }
+
+        #small-img .selected {
+            opacity: 1;
+        }
+
+        #background .bg1 {
+            height: 600px;
+            position: absolute;
+            background: url("../imgs/images/bg1.png");
+        }
+
+        #background .bg2 {
+            height: 600px;
+            position: absolute;
+            background: url("../imgs/images/bg2.png");
+        }
+
+        #background .bg3 {
+            height: 600px;
+            position: absolute;
+            background: url("../imgs/images/bg3.png");
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="background">
+        <div class="bg1"></div>
+        <div class="bg2"></div>
+        <div class="bg3"></div>
+    </div>
+    <div id="content">
+        <div id="big-img">
+            <img src="../imgs/images/1.jpg" alt="">
+            <img src="../imgs/images/2.jpg" alt="">
+            <img src="../imgs/images/3.jpg" alt="">
+            <img src="../imgs/images/4.jpg" alt="">
+            <img src="../imgs/images/5.jpg" alt="">
+            <img src="../imgs/images/6.jpg" alt="">
+        </div>
+        <div id="small-img">
+            <img src="../imgs/images/thumbs/1.jpg" alt="" class="selected">
+            <img src="../imgs/images/thumbs/2.jpg" alt="">
+            <img src="../imgs/images/thumbs/3.jpg" alt="">
+            <img src="../imgs/images/thumbs/4.jpg" alt="">
+            <img src="../imgs/images/thumbs/5.jpg" alt="">
+            <img src="../imgs/images/thumbs/6.jpg" alt="">
+        </div>
+        <div id="arrow">
+            <span id="prev"></span>
+            <span id="next"></span>
+        </div>
+    </div>
+
+</div>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    $(function () {
+        var $bigimgs = $("#big-img img");
+        var $smallimgdiv = $("#small-img");
+        var nowidx = 0;
+        $("#big-img").css({
+            width: $bigimgs.length * $(window).width()
+        });
+        $("#background").css({
+            width: $bigimgs.length * $(window).width()
+        });
+        $(".bg1").css({
+            width: $bigimgs.length * $(window).width()
+        });
+        $(".bg2").css({
+            width: $bigimgs.length * $(window).width()
+        });
+        $(".bg3").css({
+            width: $bigimgs.length * $(window).width()
+        });
+        $bigimgs.css({
+            marginLeft: ($(window).width() - $bigimgs.first().width()) / 2,
+            marginRight: ($(window).width() - $bigimgs.first().width()) / 2
+        });
+        $smallimgdiv.css({
+            left: ($(window).width() - $smallimgdiv.width()) / 2,
+            top: 400
+        });
+        $("#prev").css({
+            left: ($(window).width() - $bigimgs.first().width()) / 2,
+            top: 100 + ($bigimgs.first().height()) / 2
+        });
+        $("#next").css({
+            left: ($(window).width() - $bigimgs.first().width()) / 2
+            + $bigimgs.first().width() - 30,
+            top: 100 + ($bigimgs.first().height()) / 2
+        });
+        $("#next").on("click", function () {
+            nowidx++;
+            if (nowidx == $bigimgs.length) {
+                nowidx = 0;
+            }
+            changeimg();
+        });
+        $("#prev").on("click", function () {
+            nowidx--;
+            if (nowidx == -1) {
+                nowidx = $bigimgs.length - 1;
+            }
+            changeimg();
+        });
+        $("#small-img img").on("click", function () {
+            nowidx = $(this).index();
+            changeimg();
+        });
+        function changeimg() {
+            $("#big-img").stop().animate({
+                left: -$(window).width() * nowidx
+            });
+            $("#small-img img").eq(nowidx).addClass("selected")
+                    .siblings().removeClass("selected");
+            $("#background .bg1").stop().animate({
+                left: -$(window).width() * nowidx / 8
+            });
+            $("#background .bg2").stop().animate({
+                left: -$(window).width() * nowidx / 4
+            });
+            $("#background .bg3").stop().animate({
+                left: -$(window).width() * nowidx / 2
+            });
+        }
+
+        $(window).on("resize", function () {
+            resizeHandler();
+        });
+
+        function resizeHandler() {
+            console.log($(window).width());
+        }
+    });
+</script>
+</body>
+</html>

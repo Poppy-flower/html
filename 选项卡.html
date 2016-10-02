@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #top li{
+            float: left;
+
+            list-style: none;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            border-right: 1px solid white;
+            font-size: 5px;
+            width: 25px;
+            cursor: pointer;
+        }
+        #header{
+            height:80px;
+            width: 120px;
+
+            margin: 0 auto;
+        }
+        #top{
+            height: 15px;
+            clear: both;
+
+        }
+        #bottom{
+
+            height: 65px;
+            width: 120px;
+        }
+        body{
+            height:100px;
+            width: 150px;
+        }
+        #bottom div{
+            height: 65px;
+            width: 120px;
+            display: none;
+        }
+        #top .first{
+            background: green;
+            color: white;
+        }
+        #bottom .seleted{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div id="top">
+        <ul>
+            <li>html</li>
+            <li>css</li>
+            <li>javascript</li>
+        </ul>
+    </div>
+
+    <div id="bottom">
+        <div id="div1">111</div>
+        <div id="div2">222</div>
+        <div id="div3">333</div>
+    </div>
+</div>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    $(function () {
+        $("#top li").on("click",function () {
+            $(this).addClass("first").siblings().removeClass("first");
+            console.log($(this).index());
+            var index=$(this).index();
+            //console.log($("#bottom div").eq());
+            $("#bottom div:eq("+index+")").addClass("seleted")
+                    .siblings().removeClass("seleted");
+        } )
+    });
+
+</script>
+</body>
+</html>

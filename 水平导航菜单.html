@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            list-style: none;
+        }
+        .first-level>li{
+            height: 20px;
+            width: 60px;
+            background: red;
+            float: left;
+            margin-left: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .second-level{
+            border:1px solid black;
+            border-top:0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<ul class="first-level">
+    <li>菜单1
+        <ul class="second-level">
+            <li>子菜单1</li>
+            <li>子菜单2</li>
+            <li>子菜单3</li>
+            <li>子菜单4</li>
+        </ul>
+    </li>
+    <li>菜单2
+        <ul class="second-level">
+            <li>子菜单1</li>
+            <li>子菜单2</li>
+            <li>子菜单3</li>
+            <li>子菜单4</li>
+        </ul>
+    </li>
+    <li>菜单3
+        <ul class="second-level">
+            <li>子菜单1</li>
+            <li>子菜单2</li>
+            <li>子菜单3</li>
+            <li>子菜单4</li>
+        </ul>
+    </li>
+    <li>菜单4
+        <ul class="second-level">
+            <li>子菜单1</li>
+            <li>子菜单2</li>
+            <li>子菜单3</li>
+            <li>子菜单4</li>
+        </ul>
+    </li>
+</ul>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    $(function () {
+        $(".first-level>li").hover(function () {
+            $(this).children().stop().slideDown();
+        },function () {
+            $(this).children().stop().slideUp();
+        })
+    });
+</script>
+</body>
+</html>

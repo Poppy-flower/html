@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<form id="formm" action="">
+    <input type="checkbox">篮球
+    <input type="checkbox">足球
+    <input type="checkbox">排球
+    <input type="checkbox">乒乓球
+</form>
+<div id="div1">
+    <button id="all">全选</button>
+    <button id="noall">全不选</button>
+    <button id="change">反选</button>
+</div>
+<script src=" jquery-1.12.4.js"></script>
+<script>
+   $(function () {
+       $("#all").on("click",function () {
+           $("#formm input").each(function () {
+               $(this).prop("checked",true);
+           })
+       })
+       $("#noall").on("click",function () {
+           $("#formm input").each(function () {
+               $(this).prop("checked",false);
+           })
+       })
+       $("#change").on("click",function () {
+           $("#formm input").each(function (index,elem) {
+               if($(this).prop("checked")==true){
+                   $(this).prop("checked",false);
+               }
+               else if($(this).prop("checked")==false){
+                   $(this).prop("checked",true);
+               }
+           });
+       })
+   });
+
+</script>
+</body>
+</html>
