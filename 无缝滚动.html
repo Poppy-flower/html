@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            list-style: none;
+        }
+        #container{
+            height: 400px;
+            width: 400px;
+            margin: 200px auto;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+        }
+        #arrow{
+            width: 100px;
+            height: 30px;
+            position:absolute;
+            bottom:20px;
+            left:50%;
+            margin-left: -50px;
+        }
+        #arrow span{
+            display: inline-block;
+            height: 25px;
+            width: 45px;
+            text-align: center;
+            line-height: 25px;
+            background: red;
+        }
+        #tab{
+            height: 400px;
+            width: 1050px;
+            position: absolute;
+            float: left;
+        }
+        #tab li{
+            height: 100px;
+            width: 120px;
+            background: orange;
+            float: left;
+            margin-right: 10px;
+            margin-top: 60px;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="arrow">
+        <span id="prev">向左</span>
+        <span id="next">向右</span>
+    </div>
+</div>
+</body>
+<script>
+    var timer;
+    var otab=document.getElementById('tab');
+    timer=setInterval(function(){
+            otab.style.left = otab.offsetLeft - 5 + "px";
+            if(otab.offsetLeft <= -otab.offsetWidth/2){
+                otab.style.left=0;
+            }
+        },40);
+    var oprev=document.getElementById("prev");
+    var onext=document.getElementById("next");
+    oprev.onmouseover=onext.onmouseover=function () {
+        if(this==oprev){
+            clearInterval(timer);
+            timer=setInterval(function(){
+                otab.style.left = otab.offsetLeft - 5 + "px";
+                if(otab.offsetLeft <= -otab.offsetWidth/2){
+                    otab.style.left=0;
+                }
+            },40);
+        }
+        if(this==onext){
+            clearInterval(timer);
+            timer=setInterval(function(){
+                otab.style.left = otab.offsetLeft + 5 + "px";
+                if(otab.offsetLeft >= -otab.offsetWidth/8){
+                    otab.style.left=-otab.offsetWidth/8*5+"px";
+                }
+            },40);
+        }
+    }
+</script>
+</html>

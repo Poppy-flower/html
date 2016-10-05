@@ -45,13 +45,6 @@
             width: 120px;
             display: none;
         }
-        #top .first{
-            background: green;
-            color: white;
-        }
-        #bottom .seleted{
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -70,19 +63,25 @@
         <div id="div3">333</div>
     </div>
 </div>
-<script src="jquery-1.12.4.js"></script>
-<script>
-    $(function () {
-        $("#top li").on("click",function () {
-            $(this).addClass("first").siblings().removeClass("first");
-            console.log($(this).index());
-            var index=$(this).index();
-            //console.log($("#bottom div").eq());
-            $("#bottom div:eq("+index+")").addClass("seleted")
-                    .siblings().removeClass("seleted");
-        } )
-    });
-
+<script type="text/javascript">
+    var oli=document.getElementsByTagName("li");
+    var odiv=document.getElementById("bottom");
+    var odivs=odiv.getElementsByTagName("div");
+    for(var i=0;i<oli.length;i++){
+        oli[i].index=i;
+        oli[i].onclick=function(){
+            for(var j=0;j<oli.length;j++){
+                odivs[j].style.display="none";
+                oli[j].style.background="white";
+                oli[j].style.color="black";
+            }
+            oli[this.index].style.background="green";
+            oli[this.index].style.borderRadius="15px";
+            oli[this.index].style.color="white";
+            odivs[this.index].style.display="block";
+        };
+        console.log(i);
+    }
 </script>
 </body>
 </html>
