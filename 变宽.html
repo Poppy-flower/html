@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+        div{
+            height: 50px;
+            width: 70px;
+            background: #000;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<script>
+    var oDiv1=document.getElementsByTagName("div");
+    for(var i=0;i<oDiv1.length;i++){
+        oDiv1[i].timer=null;
+        oDiv1[i].onmouseover=function () {
+            clearInterval(this.timer);
+            var that=this;
+            this.timer = setInterval(function () {
+                if (that.offsetWidth >= 300) {
+                    clearInterval(that.timer);
+                }
+                else {
+                    that.style.width = that.offsetWidth + 1 + "px";
+                }
+            }, 6);
+        }
+        oDiv1[i].onmouseout=function () {
+            clearInterval(this.timer);
+            var that=this;
+            this.timer=setInterval(function(){
+                if(that.offsetWidth <= 70){
+                    clearInterval(that.timer);
+                }
+                else{
+                    that.style.width=that.offsetWidth-1+"px";
+                }
+            },6);
+        }
+    }
+
+</script>
+</body>
+</html>

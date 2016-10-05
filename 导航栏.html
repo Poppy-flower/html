@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin:0;
+        }
+        #header{
+            height:100px;
+            width:100%;
+            background: gray;
+        }
+        #search{
+            height:50px;
+            width:100%;
+            background: #ffe124;
+        }
+        body{
+            height:2000px;
+        }
+        #footer{
+            height:1000px;
+            background: #000;
+        }
+
+    </style>
+</head>
+<body>
+<div id="header"></div>
+<div id="search"></div>
+<div id="footer"></div>
+<script type="text/javascript">
+    var isearchtop=document.getElementById("search");
+    var iSearchTop = isearchtop.offsetTop;
+    window.onscroll=function(){
+        var iscrolltop=document.documentElement.scrollTop||document.body.scrollTop;
+        console.log(iscrolltop);
+        console.log(iSearchTop);
+        if(iscrolltop>=iSearchTop) {
+            //console.log(isearchtop.offsetTop);
+            isearchtop.style.position="fixed";
+            isearchtop.style.top=0;
+            isearchtop.style.left=0;
+        }
+        else{
+            //console.log("666666666666");
+            isearchtop.style.position="static";
+        }
+
+    };
+
+</script>
+</body>
+</html>

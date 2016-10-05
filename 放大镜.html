@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #small-img{
+        width: 384px;
+        height: 216px;
+        float: left;
+        position: relative;
+    }
+    #small-pic{
+        width: 384px;
+        height: 216px;
+    }
+    #big-img{
+        width: 768px;
+        height: 432px;
+        position: relative;
+        overflow: hidden;
+        float: left;
+        display: none;
+        background: #000;
+
+    }
+    #big-pic{
+        position: absolute;
+        left:0;
+        top:0;
+    }
+    #drag{
+        width: 77px;
+        height: 44px;
+        background: gray;
+        z-index: 1;
+        opacity: 0.7;
+        position: absolute;
+        top:0;
+        left:0;
+        display: none;
+    }
+    #mask{
+        width: 384px;
+        height: 216px;
+        background: #000;
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        z-index: 2;
+    }
+</style>
+<body>
+<div id="small-img">
+    <div id="mask"></div>
+    <div id="drag"></div>
+    <img src="flowers.jpg" alt="" id="small-pic">
+</div>
+<div id="big-img">
+    <img src="flowers.jpg" alt="" id="big-pic">
+</div>
+<script>
+    var oSmallImg=document.getElementById("small-img");
+    var oBigImg=document.getElementById("big-img");
+    var oDrag=document.getElementById("drag");
+    var oBigPic=document.getElementById("big-pic");
+    var omask=document.getElementById("mask");
+
+    omask.onmouseover=function () {
+        oDrag.style.display="block";
+        oBigImg.style.display="block";
+        console.log("oSmallImg.onmouseover");
+    }
+    omask.onmouseout=function () {
+        oDrag.style.display="none";
+        oBigImg.style.display="none";
+        console.log("oSmallImg.onmouseout");
+    }
+    omask.onmousemove=function (e) {
+        e=e||event;
+        oDrag.style.left=e.clientX-oDrag.offsetWidth/2+"px";
+        oDrag.style.top=e.clientY-oDrag.offsetHeight/2+"px";
+        if(oDrag.offsetLeft<=0){
+            oDrag.style.left=0;
+        }
+        if(oDrag.offsetTop<=0){
+            oDrag.style.top=0;
+        }
+        if(oDrag.offsetLeft>=oSmallImg.offsetWidth-oDrag.offsetWidth){
+            oDrag.style.left=oSmallImg.offsetWidth-oDrag.offsetWidth+"px";
+        }
+        if(oDrag.offsetTop>=oSmallImg.offsetHeight-oDrag.offsetHeight){
+            oDrag.style.top=oSmallImg.offsetHeight-oDrag.offsetHeight+"px";
+        }
+
+        oBigPic.style.left=
+                -(e.clientX-oDrag.offsetWidth/2)
+                /(oSmallImg.offsetWidth-oDrag.offsetWidth)
+                *(oBigPic.offsetWidth-oBigImg.offsetWidth)+"px";
+        oBigPic.style.top=
+                -(e.clientY-oDrag.offsetHeight/2)
+                /(oSmallImg.offsetHeight-oDrag.offsetHeight)
+                *(oBigPic.offsetHeight-oBigImg.offsetHeight)+"px";
+        if(e.clientX>=oSmallImg.offsetWidth-oDrag.offsetWidth/2){
+            oBigPic.style.left=-oBigPic.offsetWidth-oBigImg.offsetWidth+"px";
+        }
+        console.log("oSmallImg.onmousemove");
+    }
+</script>
+</body>
+</html>
