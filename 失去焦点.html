@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" id="in" value="请输入内容">
+
+
+
+    <script>
+        var oin=document.getElementById("in");
+        oin.style.color="gray";
+        oin.onfocus=function(){
+            oin.style.color="black";
+            if(oin.value=="请输入内容")
+                oin.value="";
+        };
+        oin.onblur=function(){
+            if(oin.value=="")
+            {
+                oin.value="请输入内容";
+                oin.style.color="gray";
+            }
+        };
+
+    </script>
+</body>
+</html>

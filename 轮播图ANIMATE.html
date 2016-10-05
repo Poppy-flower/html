@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container{
+            position: relative;
+            height: 280px;
+            width: 520px;
+            background: red;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #imgs{
+            height: 280px;
+            width: 2080px;
+            position: absolute;
+            left:0;
+        }
+        #imgs img{
+            float: left;
+        }
+        #arrow{
+            position: absolute;
+            bottom:10px;
+            left:10px;
+        }
+        #arrow span{
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            background: gray;
+        }
+        #arrow span:hover{
+            background: #b9ff38;
+            color:white;
+        }
+        #tab{
+            position: absolute;
+            bottom:10px;
+            right:10px;
+        }
+        #tab .seleted{
+            background: green;
+            color:white;
+        }
+        #tab li{
+            float: left;
+            height: 20px;
+            width: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            list-style: none;
+            background: gray;
+        }
+        #tab li:hover{
+            background: green;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="imgs">
+        <img src="1.jpg" alt="">
+        <img src="2.jpg" alt="">
+        <img src="3.jpg" alt="">
+        <img src="4.jpg" alt="">
+    </div>
+    <ul id="tab">
+        <li class="seleted">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    </ul>
+    <div id="arrow">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+</div>
+<script src="wichung-1.0.js"></script>
+<script>
+    var ocon=document.getElementById("container");
+    var oImg=document.getElementById("imgs");
+    var aimg=oImg.getElementsByTagName("img");
+    var oTab=document.getElementById("tab");
+    var ali=oTab.getElementsByTagName("li");
+    var oprev=document.getElementById("prev");
+    var onext=document.getElementById("next");
+    var count=0;
+    var nowindex=0;
+    var timer;
+
+    oImg.appendChild(aimg[0].cloneNode());
+    for(var i=0;i<aimg.length;i++){
+        aimg[i].onload=function(){
+            count++;
+            if(count==aimg.length){
+                oImg.style.width=5*aimg[0].offsetWidth+"px";
+                success();
+            }
+
+        };
+    }
+
+    function changeimg(idx) {
+        nowindex=idx;
+        for(var j=0;j<ali.length;j++){
+            ali[j].style.background="gray";
+            ali[j].style.color="black";
+        }
+        ali[nowindex==ali.length?0:nowindex].style.background="green";
+        ali[nowindex==ali.length?0:nowindex].style.color="white";
+        animate(oImg,{left:-aimg[0].offsetWidth*nowindex})
+        console.log(nowindex);
+    }
+
+    function success(){
+        for(var i=0;i<ali.length;i++){
+            ali[i].index=i;
+            ali[i].onmouseover=function(){
+                changeimg(this.index);
+            };
+        }
+        oprev.onclick=onext.onclick=function(){
+            if(this==onext){
+                nowindex++;
+                if(nowindex==aimg.length){
+                    nowindex=1;
+                    oImg.style.left=0;
+                }
+            }
+            else if(this==oprev){
+                nowindex--;
+                if(nowindex==-1){
+                    nowindex=3;
+                    oImg.style.left=-4*aimg[0].offsetWidth+"px";
+                }
+                changeimg(nowindex);
+            }
+        }
+        timer=setInterval(function(){
+            onext.onclick();
+        },800);
+        ocon.onmouseover=function(){
+            clearInterval(timer);
+        };
+        ocon.onmouseout=function(){
+            clearInterval(timer);
+            timer=setInterval(function(){
+                onext.onclick();
+            },800);
+        };
+    }
+
+
+
+</script>
+</body>
+</html>

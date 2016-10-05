@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    li{
+        list-style: none;
+    }
+    .level1{
+        height:20px;
+        width: 60px;
+        float:left;
+        border: 1px solid black;
+        margin-right: 5px;
+        background:url("arrow.jpg") no-repeat right 2px ;
+    }
+    .level2{
+        height: 60px;
+        width: 30px;
+        clear: both;
+        display:none;
+        border:1px solid black;
+    }
+    .level2 li:hover{
+        background: gray;
+    }
+    .level2 li{
+        height:20px;
+        width: 30px;
+        /*background: red;*/
+    }
+    </style>
+</head>
+<body>
+<ul id="level">
+    <li class="level1">菜单1
+        <ul class="level2">
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+        </ul>
+    </li>
+    <li class="level1">菜单2
+        <ul class="level2">
+            <li>444</li>
+            <li>555</li>
+            <li>666</li>
+        </ul>
+    </li>
+    <li class="level1">菜单3
+        <ul class="level2">
+            <li>777</li>
+            <li>888</li>
+            <li>999</li>
+        </ul>
+    </li>
+    <li class="level1">菜单4
+        <ul class="level2">
+            <li>aaa</li>
+            <li>bbb</li>
+            <li>ccc</li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var oul=document.getElementById("level");
+    var ali=oul.getElementsByTagName("li");
+
+
+    for(var i=0;i<ali.length;i++){
+        if(ali[i].className=="level1") {
+            ali[i].onmouseover=function(){
+                var aul=this.getElementsByTagName("ul")[0];
+                aul.style.display="block";
+                this.style.backgroundPosition="right -15px";
+            };
+            ali[i].onmouseout=function(){
+                var aul=find(this);
+                aul.style.display="none";
+                this.style.backgroundPosition="right 2px";
+            };
+        }
+    }
+    function find(aa){
+        aa=aa.firstChild;
+        while(aa.nodeType!=1){
+            aa=aa.nextSibling;
+        }
+        return aa;
+    }
+
+</script>
+</body>
+</html>
