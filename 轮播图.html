@@ -10,13 +10,16 @@
             width: 520px;
             background: red;
             margin: 100px auto;
+            overflow: hidden;
         }
         #imgs{
             height: 280px;
             width: 520px;
         }
         #imgs img{
-            display: none;
+            height: 280px;
+            width: 520px;
+            
         }
         #arrow{
             position: absolute;
@@ -53,97 +56,65 @@
             list-style: none;
             background: gray;
         }
-        #tab li:hover{
-            background: green;
-            color:white;
-        }
     </style>
 </head>
 <body>
 <div id="container">
-    <div id="imgs"></div>
-    <ul id="tab"></ul>
+    <div id="imgs">
+        <img src="../imgs/1.jpg" alt="">
+        <img src="../imgs/2.jpg" alt="">
+        <img src="../imgs/3.jpg" alt="">
+        <img src="../imgs/4.jpg" alt="">
+    </div>
+    <ul id="tab">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
     <div id="arrow">
         <span id="prev">&lt;</span>
         <span id="next">&gt;</span>
     </div>
 </div>
+<script src="jquery-1.12.4.js"></script>
 <script>
-    var ocon=document.getElementById("container");
-    var oImg=document.getElementById("imgs");
-    var aimg=oImg.getElementsByTagName("img");
-    var oTab=document.getElementById("tab");
-    var ali=oTab.getElementsByTagName("li");
-    var oprev=document.getElementById("prev");
-    var onext=document.getElementById("next");
-    var imgnum=4;
-    var count=0;
-    var nowindex=0;
-    for(var i=0;i<imgnum;i++) {
-        var img = new Image();
-        img.onload = function () {
-            count++;
-            if (count == imgnum) {
-                loadsuccess();
+    $(function () {
+        function changeimg(idx) {
+            $("#tab li").eq(idx).css({
+                background: "green",
+                color:"white"
+            }).siblings().css({
+                background:"gray",
+                color:"black"
+            });
+            $("#imgs img").eq(idx).css("display","block").siblings()
+                    .css("display","none");
+        }
+        var nowidx=0;
+        $("#tab li").eq(0).css({
+            background: "green",
+            color:"white"
+        });
+        $("#tab li").on("click",function () {
+            nowidx=$(this).index();
+            changeimg(nowidx);
+        })
+        $("#prev").on("click",function () {
+            nowidx--;
+            if(nowidx==-1){
+                nowidx=$("#imgs img").length-1;
             }
-        }
-        img.src=(i+1)+".jpg";
-        oImg.appendChild(img);
-
-        var oli=document.createElement("li");
-        oli.innerHTML=i+1;
-        oTab.appendChild(oli);
-    }
-    function changeimg(index){
-
-        for(var i=0;i<imgnum;i++){
-            ali[i].style.color="black";
-            ali[i].style.background="gray";
-            aimg[i].style.display="none";
-        }
-        ali[index].style.color="white";
-        ali[index].style.background="green";
-        aimg[index].style.display="block";
-    }
-
-    function loadsuccess() {
-        changeimg(nowindex);
-        for(var i=0;i<imgnum;i++) {
-            ali[i].aa=i;
-            ali[i].onmouseover=function () {
-                changeimg(this.aa);
-                nowindex=this.aa;
+            changeimg(nowidx);
+        })
+        $("#next").on("click",function () {
+            nowidx++;
+            if(nowidx==$("#imgs img").length){
+                nowidx=0;
             }
-        }
-        oprev.onclick=onext.onclick=function () {
-            if (this == oprev) {
-                nowindex--;
-                if (nowindex == -1) {
-                    nowindex = imgnum - 1;
-                }
-            }
-            else if (this == onext) {
-                nowindex++;
-                if (nowindex == imgnum) {
-                    nowindex = 0;
-                }
-            }
-            changeimg(nowindex);
-            console.log(nowindex);
-        }
-        var timer=setInterval(function(){
-            onext.onclick();
-        },1000);
-        ocon.onmouseover=function () {
-            clearInterval(timer);
-        }
-        ocon.onmouseout=function () {
-            timer=setInterval(function(){
-                onext.onclick();
-            },1000);
-        }
-    }
-
+            changeimg(nowidx);
+        })
+    });
 </script>
 </body>
 </html>
