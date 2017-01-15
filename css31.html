@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style  type="text/css">
+        p.one{
+            border-style:solid;
+            border-width:5px;
+        }
+        p.two{
+            border-style:solid;
+            border-width:thick;
+        }
+        p.three{
+            border-style:solid;
+            border-width:5px 10px;
+        }
+        p.four{
+            border-style:solid;
+            border-width:5px 10px 1px;
+        }
+        p.five{
+            border-style:solid;
+            border-width:5px 10px 1px medium;
+        }
+    </style>
+</head>
+<body>
+<p  class="one">some text</p>
+<p  class="two">some text</p>
+<p  class="three">some text</p>
+<p  class="four">some text</p>
+<p  class="five">some text</p>
+<p>border-width单独用是不会起作用的，必须先用border-style设置</p>
+</body>
+</html>
